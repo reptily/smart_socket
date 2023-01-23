@@ -26,6 +26,18 @@ void listen()
   MDNS.update();
 }
 
+bool validate(int typeMethod)
+{
+  if (server.method() != typeMethod) {
+    String message = "{\"status\":\"ERROR\", \"message\": \"Request method not supported\"}";
+    server.send(400, "application/json", message);
+    
+    return false;
+  }
+
+  return true;
+}
+
 void handleTest() 
 { 
   String message = "{\"status\":\"OK\"}";
@@ -34,9 +46,7 @@ void handleTest()
 
 void handleSetSwitch() 
 {
-  if (server.method() != HTTP_POST) {
-    String message = "{\"status\":\"ERROR\", \"message\": \"Request method not supported\"}";
-    server.send(400, "application/json", message);
+  if (!validate(HTTP_POST)) {
     return;
   }
 
@@ -53,9 +63,7 @@ void handleSetSwitch()
 
 void handleWifiUpdateSetting() 
 {
-  if (server.method() != HTTP_POST) {
-    String message = "{\"status\":\"ERROR\", \"message\": \"Request method not supported\"}";
-    server.send(400, "application/json", message);
+  if (!validate(HTTP_POST)) {
     return;
   }
 
@@ -73,9 +81,7 @@ void handleWifiUpdateSetting()
 
 void handleWifiResetSetting() 
 {
-  if (server.method() != HTTP_DELETE) {
-    String message = "{\"status\":\"ERROR\", \"message\": \"Request method not supported\"}";
-    server.send(400, "application/json", message);
+  if (!validate(HTTP_DELETE)) {
     return;
   }
 
@@ -90,9 +96,7 @@ void handleWifiResetSetting()
 
 void handleReset() 
 {
-  if (server.method() != HTTP_GET) {
-    String message = "{\"status\":\"ERROR\", \"message\": \"Request method not supported\"}";
-    server.send(400, "application/json", message);
+  if (!validate(HTTP_GET)) {
     return;
   }
 

@@ -1,5 +1,3 @@
-#define DEBUG_PRING true
-
 void debug(String message) 
 {
   if (DEBUG_PRING == false) {

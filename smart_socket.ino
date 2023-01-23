@@ -6,6 +6,8 @@
 #define PIN_SIGNAL_WIFI_LAMP 14 //d5
 #define PIN_RESET_BUTTON 12 // d6
 
+#define DEBUG_PRING true
+
 /**
  * Board - esp8266 -> NodeMCU 1.0 (ESP-12E Mocule)
  *
@@ -40,6 +42,7 @@ void index()
   if (!existsSettings()) {
     debug("File settings not found");
     startAP();
+    
     return;
   }  
 
@@ -59,8 +62,10 @@ void loop()
 void setActiveSmartSocket(bool isActive) 
 {
   if (isActive) {
+    debug("switch on");
     digitalWrite(PIN_SMART_SOCKET_PUMP, HIGH);    
   } else {
+    debug("switch off");
     digitalWrite(PIN_SMART_SOCKET_PUMP, LOW);
   }
 }

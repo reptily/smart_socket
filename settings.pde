@@ -1,34 +1,37 @@
-#include "LittleFS.h" 
+#include "FS.h"
 
 #define FILE_SETTINGS "/settings.cfg"
 
 void initFS()
 {
-  LittleFS.begin();
+  SPIFFSConfig configFS;
+  configFS.setAutoFormat(false);
+  SPIFFS.setConfig(configFS);
+
+  if (!SPIFFS.begin()) {
+    debug("ERORR SPIFFS");
+  }
 }
 
 bool existsSettings() 
 {
-  return LittleFS.exists(FILE_SETTINGS);
+  return SPIFFS.exists(FILE_SETTINGS);
 }
 
 void initSettings() 
 {  
-  File fileSettings = LittleFS.open(FILE_SETTINGS, "r");
-  String settings[2];
+  File fileSettings = SPIFFS.open(FILE_SETTINGS, "r");
 
   uint16_t bytesRead = fileSettings.read((byte *) &Settings, sizeof(Settings));
-  settings[0] = Settings.ssid;
-  settings[1] = Settings.password;
 
-  debug("read file settings ssid:" + settings[0] + " password:" + settings[1]);
+  debug("read file settings ssid:" + (String) Settings.ssid + " password:" + (String) Settings.password);
   
   fileSettings.close();
 }
 
 void setSettings(String ssid, String password) 
 {
-  File fileSettings = LittleFS.open(FILE_SETTINGS, "w+");
+  File fileSettings = SPIFFS.open(FILE_SETTINGS, "w+");
 
   if (!fileSettings) {
     debug("file settings open failed");  
@@ -49,5 +52,5 @@ void setSettings(String ssid, String password)
 
 void resetSettings()
 {
-  LittleFS.remove(FILE_SETTINGS);
+  SPIFFS.remove(FILE_SETTINGS);
 }
