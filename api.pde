@@ -90,8 +90,7 @@ void handleWifiResetSetting()
   String message = "{\"status\":\"OK\", \"message\": \"Settings is reset\"}";
   server.send(200, "application/json", message); 
 
-  delay(3000);
-  ESP.restart();
+  restart();
 } 
 
 void handleReset() 
@@ -103,6 +102,5 @@ void handleReset()
   String message = "{\"status\":\"OK\", \"message\": \"Device is reset\"}";
   server.send(200, "application/json", message); 
 
-  delay(3000);
-  ESP.restart();
+  restart();
 } 
