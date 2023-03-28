@@ -12,6 +12,6 @@ Boards manager -> esp8266
 
 # Pins
 
-D7 - Smart socket
-D5 - Signal WI-FI lamp
-D6 - Reset button
+D7 - Smart socket \
+D5 - Signal WI-FI lamp \
+D6 - Reset button \
