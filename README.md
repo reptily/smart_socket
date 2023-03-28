@@ -1,6 +1,6 @@
 # Scheme
 <p align="center">
-    <img src="https://media.reptily.ru//content/preview_image/7j6oBoezmhsk9vnPeJULKJCFX2Rg8WcjWAhN3nvW.jpg">
+    <img src="scheme.jpg">
 </p>
 
 # Settings Arduino IDE
