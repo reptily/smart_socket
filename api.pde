@@ -75,8 +75,7 @@ void handleWifiUpdateSetting()
   String message = "{\"status\":\"OK\", \"message\": \"Settings is saved\"}";
   server.send(200, "application/json", message); 
 
-  delay(3000);
-  ESP.restart();
+  restart();
 }
 
 void handleWifiResetSetting() 
