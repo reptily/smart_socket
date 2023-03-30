@@ -26,6 +26,8 @@ SettingsStruct Settings {
   "12345678"    
 };
 
+bool gIsActive = false;
+
 void setup() 
 {
   Serial.begin(SERIAL_SPEED_RATE);
@@ -64,12 +66,19 @@ void loop()
 void setActiveSmartSocket(bool isActive) 
 {
   if (isActive) {
+    gIsActive = true;
     debug("switch on");
     digitalWrite(PIN_SMART_SOCKET, HIGH);
   } else {
+    gIsActive = false;
     debug("switch off");
     digitalWrite(PIN_SMART_SOCKET, LOW);
   }
+}
+
+bool getActiveSmartSocket()
+{
+  return gIsActive;
 }
 
 void restart()

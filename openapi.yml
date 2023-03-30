@@ -61,12 +61,12 @@ paths:
         400:
           $ref: '#/components/responses/400'
 
-  /set_switch:
+  /switch/set:
     post:
       summary: Set switch
       parameters:
         -
-          name: is_active
+          name: active
           description: set active switch
           required: true
           in: query
@@ -90,6 +90,25 @@ paths:
               example:
                 status: OK
                 message: Smart socket set active
+        400:
+          $ref: '#/components/responses/400'
+
+  /switch/status:
+    get:
+      summary: Status switch
+      responses:
+        200:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_active:
+                    type: boolean
+                    description: Status switch
+              example:
+                is_active: true
         400:
           $ref: '#/components/responses/400'
 

@@ -9,7 +9,8 @@ void routes()
 {
   server.on("/test", handleTest);
   server.on("/restart", handleReset);
-  server.on("/set_switch", handleSetSwitch);
+  server.on("/switch/set", handleSetSwitch);
+  server.on("/switch/status", handleStatusSwitch);
   server.on("/wifi/update_setting", handleWifiUpdateSetting);
   server.on("/wifi/reset_setting", handleWifiResetSetting);
 }
@@ -50,15 +51,26 @@ void handleSetSwitch()
     return;
   }
 
-  String isActiveParam = server.arg("is_active");
-  bool isActive = StringToBool(isActiveParam);
+  String activeParam = server.arg("active");
+  bool active = StringToBool(activeParam);
 
-  debug("is active:" + isActive);
+  debug("active:" + active);
 
   String message = "{\"status\":\"OK\", \"message\": \"Smart socket set active\"}";
   server.send(200, "application/json", message); 
 
-  setActiveSmartSocket(isActive);
+  setActiveSmartSocket(active);
+}
+
+void handleStatusSwitch()
+{
+  String isActive = "false";
+  if (getActiveSmartSocket()) {
+    isActive = "true";
+  }
+
+  String message = "{\"is_active\": " + isActive + "}";
+  server.send(200, "application/json", message);
 }
 
 void handleWifiUpdateSetting() 
